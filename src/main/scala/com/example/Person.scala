@@ -4,10 +4,11 @@ case class Person(name: String, id: Int)
 
 object Person {
   object Instances {
-    // TODO #9: Define an Eq instance for Person comparing them by name
-    //          Extra points: receive an implicit instance for String and use it
-
-    // TODO #10: Define an Eq instance for Person comparing them by id
-    //           Extra points: receive an implicit instance for Int and use it
+     implicit val eqByName : Eq[Person] = Eq.instance((p1, p2) => {
+       Eq[String].eq(p1.name, p2.name)
+     })
+     implicit val eqById : Eq[Person] = Eq.instance{(p1, p2) =>
+       Eq[Int].eq(p1.id, p2.id)
+     }
   }
 }
